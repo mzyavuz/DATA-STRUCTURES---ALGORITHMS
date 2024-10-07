@@ -5,18 +5,21 @@ public class CoffeeShop {
    private String name;
    private MenuItem[] menu;
    private String[] orders;
+   private static int coffeeShopCount = 0;
 
 
    CoffeeShop() {
       this.name = "null";
       this.menu = new MenuItem[0];
       this.orders = new String[0];
+      coffeeShopCount++;
    }
   
    CoffeeShop(String name, MenuItem[] menu, String[] orders) {
       this.setName(name);
       this.setMenu(menu);
       this.setOrders(orders);
+      coffeeShopCount++;
    }
 
 
@@ -178,11 +181,10 @@ public class CoffeeShop {
          System.out.println("----------------------------");
       }
    }
-  
-   public static void displayTotalVegFood() {
-      System.out.println("There are " + FoodItem.getTotalVegFood() + " vegeterian food here!");
-   }
 
+   public static void displayCoffeeShopCount() {
+	   System.out.println("Number of CoffeeShop instances: " + coffeeShopCount);
+   }
 
 }
 
@@ -232,15 +234,12 @@ class MenuItem {
 class FoodItem extends MenuItem {
    private int calories;
    private boolean isVegetarian;
-   private static int totalVegItem = 0;
 
 
    FoodItem(String item, double price, int calories, boolean isVegetarian) {
       super(item, "food", price);
       this.calories = calories;
       this.isVegetarian = isVegetarian;
-      if (isVegetarian)
-         totalVegItem++;
    }
 
 
@@ -249,10 +248,6 @@ class FoodItem extends MenuItem {
       System.out.println("Calories: " + calories + " kcal");
       if (isVegetarian)
          System.out.println("This food is vegeterian");
-   }
-  
-   public static int getTotalVegFood() {
-      return totalVegItem;
    }
 }
 
@@ -274,10 +269,5 @@ class DrinkItem extends MenuItem {
       System.out.println("Size: " + size);
       System.out.print("Hot/Cold: ");
       System.out.println(isHot ? "Hot" : "Cold");
-   }
-
-
-   public static DrinkItem convertToDrinkItem(MenuItem menu, String size, boolean isHot) {
-      return new DrinkItem(menu.getItem(), menu.getPrice(), size, isHot);
    }
 }
